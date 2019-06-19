@@ -1,0 +1,29 @@
+{
+  "name": "FinalChallenge",
+  "version": "1.0.0",
+  "description": "This project is an application to order and manage delivery at a pizzeria",
+  "main": "index.js",
+  "repository": "https://github.com/icbertoncelo/Pizzaria-Don-Juan",
+  "author": "Ian Carlos da Silva Bertoncelo",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "pg": "^7.11.0",
+    "sequelize": "^5.8.10"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.19.1",
+    "sequelize-cli": "^5.5.0"
+  }
+}
