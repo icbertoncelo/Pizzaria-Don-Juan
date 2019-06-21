@@ -23,15 +23,14 @@ routes.delete('/products/:id', controllers.ProductController.destroy)
  */
 routes.get('/types', controllers.TypeController.index)
 routes.post('/types/:product', controllers.TypeController.store)
-routes.put('/types/:product/:id', controllers.TypeController.update)
-routes.delete('/types/:product/:id', controllers.TypeController.destroy)
-routes.delete('/products/:id', controllers.ProductController.destroy)
+routes.put('/types/:id', controllers.TypeController.update)
+routes.delete('/types/:id', controllers.TypeController.destroy)
 /**
  * Sizes
  */
 routes.get('/sizes', controllers.SizeController.index)
 routes.post('/sizes/:product', controllers.SizeController.store)
-routes.put('/sizes/:product/:id', controllers.SizeController.update)
-routes.delete('/sizes/:product/:id', controllers.SizeController.destroy)
+routes.put('/sizes/:id', controllers.SizeController.update)
+routes.delete('/sizes/:id', controllers.SizeController.destroy)
 
 module.exports = routes
