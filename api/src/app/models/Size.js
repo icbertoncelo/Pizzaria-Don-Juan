@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Size = sequelize.define('Size', {
     name: DataTypes.STRING,
-    additional: DataTypes.FLOAT
+    additional: DataTypes.FLOAT,
+    image: DataTypes.STRING
   })
 
   Size.associate = models => {

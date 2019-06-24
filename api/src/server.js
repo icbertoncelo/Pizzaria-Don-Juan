@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path')
 
 class Server {
   constructor () {
@@ -12,6 +13,10 @@ class Server {
 
   middlewares () {
     this.express.use(express.json())
+    this.express.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    )
   }
 
   routes () {

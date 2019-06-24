@@ -8,7 +8,8 @@ class ProductController {
   }
 
   async store (req, res) {
-    const product = await Product.create(req.body)
+    const { filename: image } = req.file
+    const product = await Product.create({ ...req.body, image })
 
     return res.json(product)
   }

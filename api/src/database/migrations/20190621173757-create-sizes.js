@@ -13,6 +13,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      image: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       additional: {
         allowNull: false,
         type: Sequelize.FLOAT

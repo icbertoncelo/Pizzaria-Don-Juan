@@ -10,11 +10,13 @@ class SizeController {
   async store (req, res) {
     const { product } = req.params
     const { name, additional } = req.body
+    const { filename: image } = req.file
 
     const size = await Size.create({
       product_id: product,
       name,
-      additional
+      additional,
+      image
     })
 
     return res.json(size)

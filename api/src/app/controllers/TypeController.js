@@ -12,11 +12,13 @@ class TypeController {
   async store (req, res) {
     const { product } = req.params
     const { name, price } = req.body
+    const { filename: image } = req.file
 
     const type = await Type.create({
       product_id: product,
       name,
-      price
+      price,
+      image
     })
 
     return res.json(type)
