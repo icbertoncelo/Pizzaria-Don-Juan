@@ -32,5 +32,17 @@ routes.get('/sizes', controllers.SizeController.index)
 routes.post('/sizes/:product', controllers.SizeController.store)
 routes.put('/sizes/:id', controllers.SizeController.update)
 routes.delete('/sizes/:id', controllers.SizeController.destroy)
+/**
+ * Orders
+ */
+routes.get('/orders', controllers.OrderController.index)
+routes.get('/orders/:user_id', controllers.OrderController.show)
+routes.post('/orders/:user_id', controllers.OrderController.store)
+/**
+ * Order Items
+ */
+routes.get('/orderitems/:order_id', controllers.OrderItemController.index)
+routes.post('/orderitems/:order_id', controllers.OrderItemController.store)
+routes.delete('/orderitems/:id', controllers.OrderItemController.destroy)
 
 module.exports = routes
