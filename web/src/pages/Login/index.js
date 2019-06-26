@@ -1,10 +1,16 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Form } from './styles';
+import Logo from '~/assets/logo.png';
 
 const Login = () => (
   <Container>
-    <h1>Login</h1>
+    <Form>
+      <img src={Logo} alt="Logo" />
+      <input type="text" placeholder="Seu e-mail" />
+      <input type="password" placeholder="Senha secreta" />
+      <button type="submit">Entrar</button>
+    </Form>
   </Container>
 );
 
