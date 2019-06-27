@@ -1,8 +1,10 @@
-const { Size } = require('../models')
+const { Size, Product } = require('../models')
 
 class SizeController {
   async index (req, res) {
-    const sizes = await Size.findAll({ include: [{ all: true }] })
+    const sizes = await Size.findAll({
+      include: [{ model: Product, as: 'product', attributes: ['name'] }]
+    })
 
     return res.json(sizes)
   }

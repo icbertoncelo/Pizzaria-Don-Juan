@@ -1,9 +1,9 @@
-const { Type } = require('../models')
+const { Type, Product } = require('../models')
 
 class TypeController {
   async index (req, res) {
     const types = await Type.findAll({
-      include: [{ all: true }]
+      include: [{ model: Product, as: 'product', attributes: ['name'] }]
     })
 
     return res.json(types)

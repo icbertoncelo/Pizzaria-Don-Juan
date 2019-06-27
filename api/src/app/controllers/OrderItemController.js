@@ -4,10 +4,10 @@ class OrderItemController {
   async index (req, res) {
     const { order_id } = req.params
 
-    const items = await OrderItem.findAll(
-      { where: { order_id } },
-      { include: [{ all: true }] }
-    )
+    const items = await OrderItem.findAll({
+      where: { order_id },
+      include: [{ all: true }]
+    })
 
     return res.json(items)
   }

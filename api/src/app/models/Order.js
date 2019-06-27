@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Order.associate = models => {
     Order.belongsTo(models.User, { as: 'user', foreignKey: 'user_id' })
+    Order.hasMany(models.OrderItem, { as: 'items' })
   }
 
   return Order
