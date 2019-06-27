@@ -101,6 +101,8 @@ export const ItemsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 20px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 `;
 
 export const Item = styled.div`
@@ -109,7 +111,7 @@ export const Item = styled.div`
   border: 1px solid #ddd;
   border-radius: 7px;
   padding: 5px;
-  margin-top: 10px;
+  margin: 10px 0;
 
   img {
     height: 100px;
@@ -118,7 +120,14 @@ export const Item = styled.div`
   }
 
   div {
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
   }
+`;
+
+export const Notes = styled.strong`
+  margin-top: 10px;
+  font-size: 16px;
+  color: #999;
 `;
