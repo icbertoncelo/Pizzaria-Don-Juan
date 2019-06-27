@@ -1,6 +1,8 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'connected-react-router';
 
+import history from '~/routes/history';
 import rootReducer from './ducks';
 import rootSaga from './sagas';
 
@@ -13,12 +15,12 @@ middlewares.push(sagaMiddleware);
 
 const composer = process.env.NODE_ENV === 'development'
   ? compose(
-    applyMiddleware(...middlewares),
+    applyMiddleware(...middlewares, routerMiddleware(history)),
     console.tron.createEnhancer(),
   )
-  : applyMiddleware(...middlewares);
+  : applyMiddleware(...middlewares, routerMiddleware(history));
 
-const store = createStore(rootReducer, composer);
+const store = createStore(rootReducer(history), composer);
 
 sagaMiddleware.run(rootSaga);
 

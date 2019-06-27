@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import AuthActions from '~/store/ducks/auth';
 
 import {
   Header,
@@ -12,7 +17,7 @@ import {
 } from './styles';
 import Logo from '~/assets/logo.png';
 
-const Main = () => (
+const Main = ({ logout }) => (
   <>
     <Header>
       <LogoContainer>
@@ -21,7 +26,9 @@ const Main = () => (
       </LogoContainer>
       <UserDataContainer>
         <strong>Ian Carlos</strong>
-        <button type="button">Sair</button>
+        <button type="button" onClick={logout}>
+          Sair
+        </button>
       </UserDataContainer>
     </Header>
 
@@ -70,4 +77,17 @@ const Main = () => (
   </>
 );
 
-export default Main;
+Main.propTypes = {
+  logout: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(AuthActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Main);
