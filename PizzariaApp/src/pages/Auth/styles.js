@@ -54,3 +54,8 @@ export const AccessText = styled.Text`
   font-weight: bold;
   color: #fff;
 `;
+
+export const AccountButton = styled.TouchableOpacity`
+  background: transparent;
+  margin-top: 20px;
+`;
