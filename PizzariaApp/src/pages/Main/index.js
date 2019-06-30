@@ -56,7 +56,7 @@ class Main extends Component {
           data={products}
           keyExtractor={product => String(product.id)}
           renderItem={({ item }) => (
-            <Product onPress={() => {}}>
+            <Product onPress={() => this.props.navigation.navigate('Type')}>
               <ProductImage source={{ uri: item.image }} />
               <ProductData>
                 <ProductName>{item.product}</ProductName>
