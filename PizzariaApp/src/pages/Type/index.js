@@ -41,7 +41,7 @@ class Type extends Component {
           data={types}
           keyExtractor={type => String(type.id)}
           renderItem={({ item }) => (
-            <TypeComponent onPress={() => {}}>
+            <TypeComponent onPress={() => this.props.navigation.navigate('Size')}>
               <TypeImage source={{ uri: item.image }} />
               <TypeName>{item.name}</TypeName>
             </TypeComponent>
