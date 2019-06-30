@@ -1,4 +1,4 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 import Login from '~/pages/Auth/Login';
 import Register from '~/pages/Auth/Register';
@@ -6,9 +6,19 @@ import Main from '~/pages/Main';
 
 const Routes = createAppContainer(
   createSwitchNavigator({
-    Login,
-    Register,
-    Main,
+    // Login,
+    // Register,
+    Order: createStackNavigator(
+      {
+        Main,
+      },
+      {
+        initialRouteName: 'Main',
+        defaultNavigationOptions: {
+          header: null,
+        },
+      },
+    ),
   }),
 );
 
