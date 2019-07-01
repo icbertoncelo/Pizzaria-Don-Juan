@@ -30,6 +30,7 @@ export const TypeComponent = styled.TouchableOpacity.attrs({
 export const TypeImage = styled.Image`
   width: 120px;
   height: 120px;
+  margin-bottom: 10px;
 `;
 
 export const TypeName = styled.Text`

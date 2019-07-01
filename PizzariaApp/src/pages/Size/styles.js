@@ -30,6 +30,7 @@ export const SizeComponent = styled.TouchableOpacity.attrs({
 export const SizeImage = styled.Image`
   width: 120px;
   height: 120px;
+  margin-bottom: 10px;
 `;
 
 export const SizeName = styled.Text`

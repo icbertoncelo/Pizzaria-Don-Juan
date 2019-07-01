@@ -10,7 +10,7 @@ import {
 import BackGround from '~/assets/header-background.png';
 
 const Header = ({
-  leftButton, title, rightButton, navigation,
+  leftButton, title, rightButton, navigation, shoppPrice,
 }) => (
   <Container source={BackGround}>
     <StatusBar backgroundColor="#0b2031" barStyle="light-content" />
@@ -19,9 +19,13 @@ const Header = ({
         <Icon name={leftButton} size={30} color="#fff" />
       </LeftButton>
       <Title>{title}</Title>
-      <RightButton onPress={() => {}}>
-        <Icon name={rightButton} size={30} color="#fff" />
-      </RightButton>
+      {shoppPrice ? (
+        <Title>R${shoppPrice}</Title>
+      ) : (
+        <RightButton onPress={() => {}}>
+          <Icon name={rightButton} size={30} color="#fff" />
+        </RightButton>
+      )}
     </Content>
   </Container>
 );

@@ -37,7 +37,7 @@ class Size extends Component {
           data={sizes}
           keyExtractor={size => String(size.id)}
           renderItem={({ item }) => (
-            <SizeComponent onPress={() => {}}>
+            <SizeComponent onPress={() => this.props.navigation.navigate('Shopp')}>
               <SizeImage source={{ uri: item.image }} />
               <SizeName>{item.name}</SizeName>
               <SizePrice>R${item.price}</SizePrice>
