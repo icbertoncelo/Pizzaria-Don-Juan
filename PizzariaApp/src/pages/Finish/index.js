@@ -28,7 +28,12 @@ export default class Finish extends Component {
 
     return (
       <Container>
-        <Header leftButton="keyboard-arrow-left" title="Realizar Pedido" shoppPrice="60,00" />
+        <Header
+          leftButton="keyboard-arrow-left"
+          leftAction="Shopp"
+          title="Realizar Pedido"
+          shoppPrice="60,00"
+        />
         <Form>
           <Input
             multiline

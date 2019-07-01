@@ -30,7 +30,7 @@ class Size extends Component {
 
     return (
       <Container>
-        <Header leftButton="keyboard-arrow-left" title="Selecione um tamanho" />
+        <Header leftButton="keyboard-arrow-left" leftAction="Type" title="Selecione um tamanho" />
         <SizeList
           showsVerticalScrollIndicator={false}
           numColumns={2}

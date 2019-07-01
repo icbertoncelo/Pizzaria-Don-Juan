@@ -34,7 +34,7 @@ class Type extends Component {
 
     return (
       <Container>
-        <Header leftButton="keyboard-arrow-left" title="Selecione um tipo" />
+        <Header leftButton="keyboard-arrow-left" leftAction="Main" title="Selecione um tipo" />
         <TypeList
           showsVerticalScrollIndicator={false}
           numColumns={2}

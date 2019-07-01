@@ -47,7 +47,12 @@ class Shopp extends Component {
     const { itens } = this.state;
     return (
       <Container>
-        <Header leftButton="keyboard-arrow-left" title="Carrinho" shoppPrice="60,00" />
+        <Header
+          leftButton="keyboard-arrow-left"
+          leftAction="Main"
+          title="Carrinho"
+          shoppPrice="60,00"
+        />
         <ItemList
           showsVerticalScrollIndicator={false}
           data={itens}

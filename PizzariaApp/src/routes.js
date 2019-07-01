@@ -7,6 +7,7 @@ import Type from '~/pages/Type';
 import Size from '~/pages/Size';
 import Shopp from '~/pages/Shopp';
 import Finish from '~/pages/Finish';
+import Profile from '~/pages/Profile';
 
 const Routes = createAppContainer(
   createSwitchNavigator({
@@ -19,6 +20,7 @@ const Routes = createAppContainer(
         Size,
         Shopp,
         Finish,
+        Profile,
       },
       {
         initialRouteName: 'Main',

@@ -50,7 +50,13 @@ class Main extends Component {
     const { products } = this.state;
     return (
       <Container>
-        <Header leftButton="history" title="Pizzaria Don Juan" rightButton="shopping-cart" />
+        <Header
+          leftButton="history"
+          leftAction="Profile"
+          title="Pizzaria Don Juan"
+          rightButton="shopping-cart"
+          rightAction="Shopp"
+        />
         <ProductList
           showsVerticalScrollIndicator={false}
           data={products}
