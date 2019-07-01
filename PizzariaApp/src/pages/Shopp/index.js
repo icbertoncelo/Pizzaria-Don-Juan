@@ -69,10 +69,10 @@ class Shopp extends Component {
           )}
         />
         <ActionsContainer>
-          <NewItemButton>
+          <NewItemButton onPress={() => this.props.navigation.navigate('Main')}>
             <Icon name="add-shopping-cart" size={30} color="#666" />
           </NewItemButton>
-          <ConfirmOrderButton>
+          <ConfirmOrderButton onPress={() => this.props.navigation.navigate('Finish')}>
             <ConfirmText>Realizar Pedido</ConfirmText>
           </ConfirmOrderButton>
         </ActionsContainer>
