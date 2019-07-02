@@ -2,7 +2,10 @@ const { Size, Product } = require('../models')
 
 class SizeController {
   async index (req, res) {
+    const { product_id } = req.params
+
     const sizes = await Size.findAll({
+      where: { product_id },
       include: [{ model: Product, as: 'product', attributes: ['name'] }]
     })
 
@@ -10,12 +13,12 @@ class SizeController {
   }
 
   async store (req, res) {
-    const { product } = req.params
+    const { product_id } = req.params
     const { name, additional } = req.body
     const { filename: image } = req.file
 
     const size = await Size.create({
-      product_id: product,
+      product_id,
       name,
       additional,
       image
