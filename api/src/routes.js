@@ -27,9 +27,9 @@ routes.delete('/products/:id', controllers.ProductController.destroy)
 /**
  * Types
  */
-routes.get('/types', controllers.TypeController.index)
+routes.get('/types/:product_id', controllers.TypeController.index)
 routes.post(
-  '/types/:product',
+  '/types/:product_id',
   upload.single('image'),
   controllers.TypeController.store
 )

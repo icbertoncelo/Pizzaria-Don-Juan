@@ -2,7 +2,10 @@ const { Type, Product } = require('../models')
 
 class TypeController {
   async index (req, res) {
+    const { product_id } = req.params
+
     const types = await Type.findAll({
+      where: { product_id },
       include: [{ model: Product, as: 'product', attributes: ['name'] }]
     })
 
@@ -10,12 +13,12 @@ class TypeController {
   }
 
   async store (req, res) {
-    const { product } = req.params
+    const { product_id } = req.params
     const { name, price } = req.body
     const { filename: image } = req.file
 
     const type = await Type.create({
-      product_id: product,
+      product_id,
       name,
       price,
       image
