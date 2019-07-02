@@ -45,15 +45,3 @@ export const ProductDescription = styled.Text`
   font-size: 14px;
   color: #999;
 `;
-
-export const Error = styled.Text`
-  font-size: 18px;
-  color: #e64c4c;
-  text-align: center;
-  font-weight: bold;
-`;
-
-export const Loading = styled.ActivityIndicator.attrs({
-  size: 'large',
-  color: '#fff',
-})``;

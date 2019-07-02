@@ -13,9 +13,9 @@ import {
   ProductName,
   ProductDescription,
   ProductData,
-  Error,
-  Loading,
 } from './styles';
+
+import { Error, Loading } from '~/styles/common';
 
 import Header from '~/components/Header';
 
