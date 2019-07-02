@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { StatusBar } from 'react-native';
+import AuthActions from '~/store/ducks/auth';
 
 import {
   Container,
@@ -16,15 +20,29 @@ import {
 import Logo from '~/assets/logo.png';
 import Fundo from '~/assets/fundo.jpg';
 
-class Login extends Component {
+class Register extends Component {
+  static propTypes = {
+    registerRequest: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
-    username: '',
+    name: '',
     email: '',
     password: '',
   };
 
+  handleSubmit = () => {
+    const { name, email, password } = this.state;
+    const { registerRequest } = this.props;
+
+    registerRequest(name, email, password);
+  };
+
   render() {
-    const { username, email, password } = this.state;
+    const { name, email, password } = this.state;
     return (
       <Container source={Fundo}>
         <Transparency colors={['transparent', 'black']}>
@@ -36,8 +54,8 @@ class Login extends Component {
               autoCorrect={false}
               placeholder="Nome completo"
               underlineColorAndroid="transparent"
-              value={username}
-              onChangeText={text => this.setState({ username: text })}
+              value={name}
+              onChangeText={text => this.setState({ name: text })}
             />
             <Input
               autoCapitalize="none"
@@ -52,10 +70,11 @@ class Login extends Component {
               autoCorrect={false}
               placeholder="Senha Secreta"
               underlineColorAndroid="transparent"
+              secureTextEntry
               value={password}
               onChangeText={text => this.setState({ password: text })}
             />
-            <AccessButton onPress={() => this.props.navigation.navigate('Login')}>
+            <AccessButton onPress={this.handleSubmit}>
               <AccessText>Criar Conta</AccessText>
             </AccessButton>
             <AccountButton onPress={() => this.props.navigation.navigate('Login')}>
@@ -68,4 +87,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => bindActionCreators(AuthActions, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Register);

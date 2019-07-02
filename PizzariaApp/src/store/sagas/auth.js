@@ -6,11 +6,11 @@ import NavigationService from '~/services/navigation';
 import AuthActions from '../ducks/auth';
 
 export function* init() {
-  const data = yield call([AsyncStorage, 'getItem'], '@DonJuan:user');
-  const user = JSON.parse(data);
+  const user = yield call([AsyncStorage, 'getItem'], '@DonJuan:user');
 
-  if (user.token) {
-    yield put(AuthActions.loginSuccess(user));
+  if (user) {
+    const data = JSON.parse(user);
+    yield put(AuthActions.loginSuccess(data));
   }
 
   yield put(AuthActions.initCheckSuccess());
@@ -33,6 +33,15 @@ export function* login({ email, password }) {
 
 export function* logout() {
   yield call([AsyncStorage, 'clear']);
+}
 
-  // yield put(push('/login'));
+export function* register({ name, email, password }) {
+  try {
+    const { data } = yield call(api.post, 'users', { name, email, password });
+
+    yield put(AuthActions.registerSuccess(data));
+    NavigationService.navigate('Login');
+  } catch (err) {
+    console.tron.log(err);
+  }
 }

@@ -9,6 +9,8 @@ const { Types, Creators } = createActions({
   loginSuccess: ['data'],
   logout: null,
   initCheckSuccess: null,
+  registerRequest: ['name', 'email', 'password'],
+  registerSuccess: ['data'],
 });
 
 export const AuthTypes = Types;
@@ -36,4 +38,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   }),
   [Types.LOGOUT]: state => state.merge({ signedIn: false, token: null }),
   [Types.INIT_CHECK_SUCCESS]: state => state.merge({ authChecked: true }),
+  [Types.REGISTER_SUCCESS]: (state, { data }) => state.merge({ data }),
 });
