@@ -3,13 +3,13 @@ import '~/config/ReactotronConfig';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import Routes from './routes';
 import store from '~/store';
+import App from './App';
 
-const App = () => (
+const Root = () => (
   <Provider store={store}>
-    <Routes />
+    <App />
   </Provider>
 );
 
-export default App;
+export default Root;

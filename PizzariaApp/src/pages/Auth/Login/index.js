@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { StatusBar } from 'react-native';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import AuthActions from '~/store/ducks/auth';
 
 import {
   Container,
@@ -17,13 +22,28 @@ import Logo from '~/assets/logo.png';
 import Fundo from '~/assets/fundo.jpg';
 
 class Login extends Component {
+  static propTypes = {
+    loginRequest: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     email: '',
     password: '',
   };
 
+  handleSubmit = () => {
+    const { email, password } = this.state;
+    const { loginRequest } = this.props;
+
+    loginRequest(email, password);
+  };
+
   render() {
     const { email, password } = this.state;
+    const { navigation } = this.props;
     return (
       <Container source={Fundo}>
         <Transparency colors={['transparent', 'black']}>
@@ -43,13 +63,14 @@ class Login extends Component {
               autoCorrect={false}
               placeholder="Senha Secreta"
               underlineColorAndroid="transparent"
-              value={password}
+              secureTextEntry
+              type="password"
               onChangeText={text => this.setState({ password: text })}
             />
-            <AccessButton onPress={() => this.props.navigation.navigate('Main')}>
+            <AccessButton onPress={this.handleSubmit}>
               <AccessText>Entrar</AccessText>
             </AccessButton>
-            <AccountButton onPress={() => this.props.navigation.navigate('Register')}>
+            <AccountButton onPress={() => navigation.navigate('Register')}>
               <AccessText>Criar conta gratuita</AccessText>
             </AccountButton>
           </Form>
@@ -59,4 +80,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => bindActionCreators(AuthActions, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Login);

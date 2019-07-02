@@ -9,27 +9,31 @@ import Shopp from '~/pages/Shopp';
 import Finish from '~/pages/Finish';
 import Profile from '~/pages/Profile';
 
-const Routes = createAppContainer(
-  createSwitchNavigator({
-    // Login,
-    // Register,
-    Order: createStackNavigator(
+export default function createNavigator(signedIn = false) {
+  return createAppContainer(
+    createSwitchNavigator(
       {
-        Main,
-        Type,
-        Size,
-        Shopp,
-        Finish,
-        Profile,
+        Login,
+        Register,
+        Order: createStackNavigator(
+          {
+            Main,
+            Type,
+            Size,
+            Shopp,
+            Finish,
+            Profile,
+          },
+          {
+            defaultNavigationOptions: {
+              header: null,
+            },
+          },
+        ),
       },
       {
-        initialRouteName: 'Main',
-        defaultNavigationOptions: {
-          header: null,
-        },
+        initialRouteName: signedIn ? 'Order' : 'Login',
       },
     ),
-  }),
-);
-
-export default Routes;
+  );
+}
