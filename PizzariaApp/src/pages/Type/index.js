@@ -15,6 +15,10 @@ import Header from '~/components/Header';
 
 class Type extends Component {
   static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+      getParam: PropTypes.func,
+    }).isRequired,
     getTypesProductsRequest: PropTypes.func.isRequired,
     types: PropTypes.shape({
       data: PropTypes.arrayOf(
@@ -28,14 +32,25 @@ class Type extends Component {
     }).isRequired,
   };
 
-  componentDidMount() {
-    const { getTypesProductsRequest } = this.props;
+  state = {
+    product_id: '',
+    product_name: '',
+  }
 
-    getTypesProductsRequest('2');
+  componentDidMount() {
+    const { getTypesProductsRequest, navigation } = this.props;
+
+    this.setState({
+      product_id: navigation.getParam('product_id'),
+      product_name: navigation.getParam('product_name'),
+    });
+
+    getTypesProductsRequest(navigation.getParam('product_id'));
   }
 
   render() {
-    const { types } = this.props;
+    const { types, navigation } = this.props;
+    const { product_id, product_name } = this.state;
 
     return (
       <Container>
@@ -50,7 +65,14 @@ class Type extends Component {
             data={types.data}
             keyExtractor={type => String(type.id)}
             renderItem={({ item }) => (
-              <TypeComponent onPress={() => this.props.navigation.navigate('Size')}>
+              <TypeComponent onPress={() => navigation.navigate('Size', {
+                product_id,
+                product_name,
+                type_id: item.id,
+                type_name: item.name,
+                image: item.image,
+                price: item.price,
+              })}>
                 <TypeImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
                 <TypeName>{item.name}</TypeName>
               </TypeComponent>

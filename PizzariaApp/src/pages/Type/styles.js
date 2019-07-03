@@ -37,4 +37,5 @@ export const TypeName = styled.Text`
   font-size: 18px;
   color: #333;
   font-weight: bold;
+  text-align: center;
 `;

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ShoppActions from '~/store/ducks/shopp';
+
 import {
   Container,
   ItemList,
@@ -20,31 +25,34 @@ import {
 import Header from '~/components/Header';
 
 class Shopp extends Component {
-  state = {
-    itens: [
-      {
-        id: 1,
-        image: 'https://www.pngarts.com/files/3/Pizza-PNG-Image.png',
-        product: 'Pizza',
-        type: 'Portuguesa',
-        size: 'M',
-        price: '28,00',
-      },
-      {
-        id: 2,
-        image: 'http://dpizza.net/wp-content/uploads/2018/12/281842_1_g.png',
-        product: 'Pizza',
-        type: '4 queijos',
-        size: 'M',
-        price: '32,00',
-      },
-    ],
+  static propTypes = {
+    removeItemSuccess: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+    shopp: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          product_name: PropTypes.string,
+          type_name: PropTypes.string,
+          size: PropTypes.string,
+          unit_price: PropTypes.number,
+        }),
+      ),
+    }).isRequired,
   };
 
   componentDidMount() {}
 
+  handleRemove = (id) => {
+    const { removeItemSuccess } = this.props;
+
+    removeItemSuccess(id);
+  };
+
   render() {
-    const { itens } = this.state;
+    const { shopp, navigation } = this.props;
+
     return (
       <Container>
         <Header
@@ -55,35 +63,46 @@ class Shopp extends Component {
         />
         <ItemList
           showsVerticalScrollIndicator={false}
-          data={itens}
+          data={shopp.data}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Item>
-              <ItemImage source={{ uri: item.image }} />
+              <ItemImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
               <ItemData>
                 <ItemName>
-                  {item.product} - {item.type}
+                  {item.product_name} - {item.type_name}
                 </ItemName>
                 <ItemSize>Temanho: {item.size}</ItemSize>
-                <ItemPrice>R${item.price}</ItemPrice>
+                <ItemPrice>R${item.unit_price}</ItemPrice>
               </ItemData>
-              <ItemDelete>
+              <ItemDelete onPress={() => this.handleRemove(item.id)}>
                 <Icon name="delete-forever" size={25} color="#e64c4c" />
               </ItemDelete>
             </Item>
           )}
         />
-        <ActionsContainer>
-          <NewItemButton onPress={() => this.props.navigation.navigate('Main')}>
-            <Icon name="add-shopping-cart" size={30} color="#666" />
-          </NewItemButton>
-          <ConfirmOrderButton onPress={() => this.props.navigation.navigate('Finish')}>
-            <ConfirmText>Realizar Pedido</ConfirmText>
-          </ConfirmOrderButton>
-        </ActionsContainer>
+        {shopp.data.length > 0 && (
+          <ActionsContainer>
+            <NewItemButton onPress={() => navigation.navigate('Main')}>
+              <Icon name="add-shopping-cart" size={30} color="#666" />
+            </NewItemButton>
+            <ConfirmOrderButton onPress={() => navigation.navigate('Finish')}>
+              <ConfirmText>Realizar Pedido</ConfirmText>
+            </ConfirmOrderButton>
+          </ActionsContainer>
+        )}
       </Container>
     );
   }
 }
 
-export default Shopp;
+const mapStateToProps = state => ({
+  shopp: state.shopp,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(ShoppActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Shopp);

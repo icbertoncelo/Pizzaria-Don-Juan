@@ -21,6 +21,9 @@ import Header from '~/components/Header';
 
 class Main extends Component {
   static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
     getProductsRequest: PropTypes.func.isRequired,
     products: PropTypes.shape({
       data: PropTypes.arrayOf(
@@ -42,7 +45,7 @@ class Main extends Component {
   }
 
   render() {
-    const { products } = this.props;
+    const { products, navigation } = this.props;
     return (
       <Container>
         <Header
@@ -61,7 +64,10 @@ class Main extends Component {
             data={products.data}
             keyExtractor={product => String(product.id)}
             renderItem={({ item }) => (
-              <Product onPress={() => this.props.navigation.navigate('Type')}>
+              <Product
+                onPress={() => navigation.navigate('Type', { product_id: item.id, product_name: item.name })
+                }
+              >
                 <ProductImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
                 <ProductData>
                   <ProductName>{item.name}</ProductName>
