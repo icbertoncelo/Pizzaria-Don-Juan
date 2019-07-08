@@ -3,25 +3,17 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import AuthActions from '~/store/ducks/auth';
 import OrderActions from '~/store/ducks/order';
 
 import {
-  Header,
-  LogoContainer,
-  UserDataContainer,
-  Content,
-  Order,
-  OrderHeader,
-  ItemsContainer,
-  Item,
-  Notes,
+  Content, Order, OrderHeader, ItemsContainer, Item, Notes,
 } from './styles';
-import Logo from '~/assets/logo.png';
+
+import Header from '~/components/Header';
 
 class Main extends Component {
   static propTypes = {
-    logout: PropTypes.func.isRequired,
+    getOrderRequest: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -31,21 +23,10 @@ class Main extends Component {
   }
 
   render() {
-    const { logout, order } = this.props;
+    const { order } = this.props;
     return (
       <>
-        <Header>
-          <LogoContainer>
-            <img src={Logo} alt="Logo" />
-            <strong>Pizzaria Don Juan</strong>
-          </LogoContainer>
-          <UserDataContainer>
-            <strong>Ian Carlos</strong>
-            <button type="button" onClick={logout}>
-              Sair
-            </button>
-          </UserDataContainer>
-        </Header>
+        <Header />
 
         <Content>
           <h1>Últimos Pedidos</h1>
@@ -82,11 +63,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   order: state.order,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ ...AuthActions, ...OrderActions }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(OrderActions, dispatch);
 
 export default connect(
   mapStateToProps,
