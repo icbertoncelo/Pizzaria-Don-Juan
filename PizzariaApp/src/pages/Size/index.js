@@ -58,11 +58,10 @@ class Size extends Component {
     getSizesProductsRequest(navigation.getParam('product_id'));
   }
 
-  handleSubmit = ({ name: size, additional }) => {
+  handleSubmit = ({ name: size, additional, id: size_id }) => {
     const { product_id, product_name, type_id, type_name, image, price } = this.state;
     const { addItemSuccess, navigation } = this.props;
-    const id = Math.random();
-
+    const id = Math.floor(Math.random() * 100); 
     const unit_price = price * additional;
 
     addItemSuccess({
@@ -72,8 +71,10 @@ class Size extends Component {
       type_id,
       type_name,
       image,
+      size_id,
       size,
       unit_price,
+      amount: 1,
     });
 
     navigation.navigate('Shopp');
@@ -97,9 +98,9 @@ class Size extends Component {
             keyExtractor={size => String(size.id)}
             renderItem={({ item }) => (
               <SizeComponent onPress={() => this.handleSubmit(item)}>
-                <SizeImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
+                <SizeImage source={{ uri: `http://192.168.1.3:5000/files/${item.image}` }} />
                 <SizeName>{item.name}</SizeName>
-                <SizePrice>R${item.additional * price}</SizePrice>
+                <SizePrice>R${(item.additional * price).toFixed(2)}</SizePrice>
               </SizeComponent>
             )}
           />

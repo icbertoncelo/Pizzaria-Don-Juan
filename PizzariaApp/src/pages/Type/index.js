@@ -73,7 +73,7 @@ class Type extends Component {
                 image: item.image,
                 price: item.price,
               })}>
-                <TypeImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
+                <TypeImage source={{ uri: `http://192.168.1.3:5000/files/${item.image}` }} />
                 <TypeName>{item.name}</TypeName>
               </TypeComponent>
             )}

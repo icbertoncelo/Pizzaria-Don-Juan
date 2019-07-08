@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import OrderActions from '~/store/ducks/order';
 
 import {
   Container,
@@ -12,7 +17,17 @@ import {
 
 import Header from '~/components/Header';
 
-export default class Finish extends Component {
+class Finish extends Component {
+  static propTypes = {
+    finishOrderRequest: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+    }).isRequired,
+    shopp: PropTypes.shape({
+      totalValue: PropTypes.float,
+    }).isRequired,
+  };
+
   state = {
     notes: '',
     cep: '',
@@ -21,10 +36,26 @@ export default class Finish extends Component {
     neighborhood: '',
   };
 
+  handleSubmit = () => {
+    const { finishOrderRequest, shopp, user } = this.props;
+    const { notes, cep } = this.state;
+
+    const order = new Object({
+      cep,
+      notes,
+      total_value: shopp.totalValue,
+      user_id: user.id,
+    });
+
+    finishOrderRequest(order);
+  };
+
   render() {
     const {
       notes, cep, street, number, neighborhood,
     } = this.state;
+
+    const { shopp } = this.props;
 
     return (
       <Container>
@@ -32,7 +63,7 @@ export default class Finish extends Component {
           leftButton="keyboard-arrow-left"
           leftAction="Shopp"
           title="Realizar Pedido"
-          shoppPrice="60,00"
+          shoppPrice={shopp.totalValue}
         />
         <Form>
           <Input
@@ -83,7 +114,7 @@ export default class Finish extends Component {
             onChangeText={text => this.setState({ neighborhood: text })}
           />
           <Actions>
-            <FinishOrderButton>
+            <FinishOrderButton onPress={this.handleSubmit}>
               <FinishText>Finalizar</FinishText>
             </FinishOrderButton>
           </Actions>
@@ -92,3 +123,15 @@ export default class Finish extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  shopp: state.shopp,
+  user: state.auth.data.user,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(OrderActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Finish);

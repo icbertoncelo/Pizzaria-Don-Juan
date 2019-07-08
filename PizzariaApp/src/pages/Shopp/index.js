@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import ShoppActions from '~/store/ducks/shopp';
 
 import {
@@ -26,11 +27,13 @@ import Header from '~/components/Header';
 
 class Shopp extends Component {
   static propTypes = {
+    calculateValue: PropTypes.func.isRequired,
     removeItemSuccess: PropTypes.func.isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
     shopp: PropTypes.shape({
+      // totalValue: PropTypes.number,
       data: PropTypes.arrayOf(
         PropTypes.shape({
           product_name: PropTypes.string,
@@ -42,12 +45,16 @@ class Shopp extends Component {
     }).isRequired,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { calculateValue } = this.props;
+    calculateValue();
+  }
 
   handleRemove = (id) => {
-    const { removeItemSuccess } = this.props;
+    const { removeItemSuccess, calculateValue } = this.props;
 
     removeItemSuccess(id);
+    calculateValue();
   };
 
   render() {
@@ -59,7 +66,7 @@ class Shopp extends Component {
           leftButton="keyboard-arrow-left"
           leftAction="Main"
           title="Carrinho"
-          shoppPrice="60,00"
+          shoppPrice={shopp.totalValue}
         />
         <ItemList
           showsVerticalScrollIndicator={false}
@@ -67,13 +74,13 @@ class Shopp extends Component {
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Item>
-              <ItemImage source={{ uri: `http://192.168.0.13:5000/files/${item.image}` }} />
+              <ItemImage source={{ uri: `http://192.168.1.3:5000/files/${item.image}` }} />
               <ItemData>
                 <ItemName>
                   {item.product_name} - {item.type_name}
                 </ItemName>
                 <ItemSize>Temanho: {item.size}</ItemSize>
-                <ItemPrice>R${item.unit_price}</ItemPrice>
+                <ItemPrice>R${item.unit_price.toFixed(2)}</ItemPrice>
               </ItemData>
               <ItemDelete onPress={() => this.handleRemove(item.id)}>
                 <Icon name="delete-forever" size={25} color="#e64c4c" />

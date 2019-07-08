@@ -5,6 +5,7 @@ import { reducer as products } from './products';
 import { reducer as types } from './types';
 import { reducer as sizes } from './sizes';
 import { reducer as shopp } from './shopp';
+import { reducer as orders } from './order';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   types,
   sizes,
   shopp,
+  orders,
 });
