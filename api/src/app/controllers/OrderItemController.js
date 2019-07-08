@@ -14,18 +14,15 @@ class OrderItemController {
 
   async store (req, res) {
     const { order_id } = req.params
-    const { product_id, type_id, size_id, amount, unit_price } = req.body
+    const { items } = req.body
 
-    const item = await OrderItem.create({
-      order_id,
-      product_id,
-      type_id,
-      size_id,
-      amount,
-      unit_price
-    })
-
-    return res.json(item)
+    await Promise.all(
+      items.map(async item => {
+        delete item.id;
+        await OrderItem.create({ ...item, order_id })
+      })
+    )
+    return res.json(items)
   }
 
   async destroy (req, res) {

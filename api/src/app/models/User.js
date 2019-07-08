@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   )
 
+  User.associate = models => {
+    User.hasMany(models.Order, { as: 'orders' })
+  }
+
   User.prototype.compareHash = function (password) {
     return bcrypt.compare(password, this.password_hash)
   }
